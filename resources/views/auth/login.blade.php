@@ -11,14 +11,25 @@
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <h3 class="login-heading mb-4">Welcome back!</h3>
-                                <form method="POST" action="{{ route('login') }}">
+                                @if(count($errors) > 0)
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        @foreach($errors->all() as $error)
+                                            <p class="mb-0">{{$error}}</p>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <form method="POST" action="{{ route('authenticate') }}">
                                     @csrf
 
                                     <div class="form-group row">
-                                        <label for="username" class="col-md-12 col-form-label">{{ __('Username') }}</label>
+                                        <label for="username"
+                                               class="col-md-12 col-form-label">{{ __('Username') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="username" type="email" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                            <input id="username" type="text"
+                                                   class="form-control @error('username') is-invalid @enderror"
+                                                   name="username" value="{{ old('username') }}" autocomplete="username"
+                                                   autofocus>
 
                                             @error('username')
                                             <span class="invalid-feedback" role="alert">
@@ -29,10 +40,13 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
+                                        <label for="password"
+                                               class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input id="password" type="password"
+                                                   class="form-control @error('password') is-invalid @enderror"
+                                                   name="password" autocomplete="current-password">
 
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -44,7 +58,8 @@
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                <input class="form-check-input" type="checkbox" name="remember"
+                                                       id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                                 <label class="form-check-label" for="remember">
                                                     {{ __('Remember Me') }}
