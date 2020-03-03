@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/cookie.js": "/js/cookie.js",
     "/css/app.css": "/css/app.css",
     "/css/search.css": "/css/search.css"
 }

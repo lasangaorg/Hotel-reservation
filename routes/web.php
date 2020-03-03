@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
 
 Auth::routes(['verify' => true]);
 
@@ -29,3 +27,5 @@ Route::post('/authenticate', 'LoginController@authenticate')->name('authenticate
 Route::get('/verify/{userid}', 'VerificationController@index')->middleware('guest')->name('verify');
 Route::post('/verifyTwoFactor', 'VerificationController@verify')->middleware('guest')->name('verifyTwoFactor');
 Route::get('/resend/{userid}', 'VerificationController@resend')->middleware('guest')->name('resend');
+
+Route::get('/post', 'PostController@index')->name('post');
