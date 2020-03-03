@@ -70,10 +70,10 @@ class VerificationController extends Controller
             $user->two_factor_expires_at = null;
             $user->save();
 
-            redirect('/')->withCookie(\Illuminate\Support\Facades\Cookie::make('username',$user->username));
+            return redirect('/login')->withCookie(\Illuminate\Support\Facades\Cookie::make('username',$user->username));
 
         } else {
-            return redirect('verify/' . $user->id)->withErrors('Code is expired or invalid. Please try again');
+            return redirect('/verify/'.$user->id)->withErrors('Code is expired or invalid. Please try again');
         }
     }
 
