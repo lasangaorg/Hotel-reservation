@@ -38,3 +38,5 @@ Route::delete('/post/delete/{post}', 'PostController@destroy')->name('delete');
 Route::get('/post/addImage/{post}', 'PostController@showAddImage')->name('showAddImage');
 Route::post('/post/addImage/{post}', 'PostController@addImage')->name('addImage');
 Route::delete('/post/delete/image/{postImage}', 'PostController@deleteImage')->name('deleteImage');
+
+Route::post('/search', 'WelcomeController@search')->name('search');

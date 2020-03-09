@@ -42,7 +42,7 @@ class LoginController extends Controller
 
             return redirect('verify/'.$user->id);
         } else {
-            return redirect('/')->withCookie(\Illuminate\Support\Facades\Cookie::make('username', $username));
+            return redirect('/');
         }
     }
 
