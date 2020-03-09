@@ -21,6 +21,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'username', 'email', 'password', 'account_balance', 'two_factor_code', 'two_factor_expires_at'
     ];
 
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

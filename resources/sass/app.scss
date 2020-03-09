@@ -140,6 +140,12 @@ root {
     color: #777;
 }
 
+.elipsis {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
 /* Fallback for Edge
 -------------------------------------------------- */
 

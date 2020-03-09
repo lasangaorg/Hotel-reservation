@@ -17,10 +17,14 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name');
-            $table->enum('post_type', array('House', 'Flat', 'Hotel', 'Villa'));
-            $table->longText('description')->nullable();
-            $table->integer('rent_per_day')->nullable();
-            $table->string('location')->nullable();
+            $table->string('address');
+            $table->string('location');
+            $table->integer('rent');
+            $table->integer('beds');
+            $table->enum('type', array('House', 'Flat', 'Hotel', 'Villa'));
+            $table->longText('description');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('is_available')->default(true);
         });
     }

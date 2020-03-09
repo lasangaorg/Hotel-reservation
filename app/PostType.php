@@ -8,12 +8,10 @@ class PostType extends Model
 {
     public function Types(){
         return [
-            'postTypes' => [
                 'House' => 'House',
                 'Flat' => 'Flat',
                 'Hotel' => 'Hotel',
                 'Villa' => 'Villa'
-            ]
         ];
     }
 }

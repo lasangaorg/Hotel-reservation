@@ -8,7 +8,7 @@ use App\PostImage;
 class WelcomeController extends Controller
 {
     public function index(){
-        $posts = Post::get()->paginate(4);
+        $posts = Post::all()->sortBy('id' , 1, false)->paginate(4);
         return view('welcome', compact('posts'));
     }
 }

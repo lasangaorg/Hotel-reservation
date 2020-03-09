@@ -29,3 +29,12 @@ Route::post('/verifyTwoFactor', 'VerificationController@verify')->middleware('gu
 Route::get('/resend/{userid}', 'VerificationController@resend')->middleware('guest')->name('resend');
 
 Route::get('/post', 'PostController@index')->name('post');
+Route::get('/post/show/{post}', 'PostController@show')->name('show');
+Route::get('/post/create', 'PostController@create')->name('create');
+Route::post('/post/create', 'PostController@store')->name('create');
+Route::get('/post/edit/{post}', 'PostController@edit')->name('showEdit');
+Route::put('/post/edit{post}', 'PostController@update')->name('edit');
+Route::delete('/post/delete/{post}', 'PostController@destroy')->name('delete');
+Route::get('/post/addImage/{post}', 'PostController@showAddImage')->name('showAddImage');
+Route::post('/post/addImage/{post}', 'PostController@addImage')->name('addImage');
+Route::delete('/post/delete/image/{postImage}', 'PostController@deleteImage')->name('deleteImage');

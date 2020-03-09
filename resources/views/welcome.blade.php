@@ -89,6 +89,71 @@
     </header>
 
     <div class="container">
+        <div class="mt-4">
+            <span>@if (Route::has('login'))
+                    @auth
+                        <a href="{{url('post')}}" class="p-0 nav-link">Show my posts</a>
+                    @endauth
+                @endif
+        </span>
+        </div>
+        <h3>Find your destination</h3>
+        <div id="sectionNews" class="row">
+            @forelse($posts as $key => $post)
+                <div class="col-lg-3 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <div id="carouselExampleIndicators{{$key}}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @if($post->postImages->count() <= 0)
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100"
+                                             src="http://placehold.it/700x400?auto=yes&bg=777&fg=555&text=No images to display"
+                                             alt="First slide" height="200px" width="100px">
+                                    </div>
+                                @endif
+                                @foreach($post->postImages as $image)
+                                    <div
+                                        class="carousel-item {{$image->id == $post->postImages[0]->id ? 'active': ''}}">
+                                        <img class="d-block w-100"
+                                             src="data:image/jpeg;base64,{{$image->image_data}}"
+                                             alt="{{$post->name}}" height="200px" width="100px">
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            @if($post->postImages->count() > 1)
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators{{$key}}" role="button"
+                                   data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators{{$key}}" role="button"
+                                   data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            @endif
+
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{$post->name}} <small>@ {{ $post->location}}</small></h4> <small>Rs.{{$post->rent}} per week</small>
+                            <div>
+                                <p class="elipsis card-text">{{$post->description}}</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="nav-link" href="{{route('show', ['post' => $post])}}"><small>show more</small></a>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <small class="ml-3">Nothing found</small>
+            @endforelse
+        </div>
+
+        <ul class="pagination justify-content-center">
+            {{$posts->links()}}
+        </ul>
 
         <div class="row mt-5">
             <div class="col-md-8 mb-5">
@@ -121,67 +186,6 @@
             </div>
         </div>
 
-        <h3>Find your destination</h3>
-
-        <div id="sectionNews" class="row">
-            @forelse($posts as $key => $post)
-                <div class="col-lg-3 col-sm-6 mb-4">
-                    <div class="card h-100">
-                        <div id="carouselExampleIndicators{{$key}}" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                @foreach($post->postImages as $image)
-                                    <li data-target="#carouselExampleIndicators{{$key}}" data-slide-to="{{$key}}"
-                                        class="active"></li>
-                                @endforeach
-                            </ol>
-                            <div class="carousel-inner">
-                                @if($post->postImages->count() <= 0)
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100"
-                                             src="http://placehold.it/700x400?auto=yes&bg=777&fg=555&text=No images to display"
-                                             alt="First slide" height="300px" width="100px">
-                                    </div>
-                                @endif
-                                @foreach($post->postImages as $image)
-                                    <div
-                                        class="carousel-item {{$image->id == $post->postImages[0]->id ? 'active': ''}}">
-                                        <img class="d-block w-100"
-                                             src="data:image/jpeg;base64,{{base64_encode($image->image_data)}}"
-                                             alt="First slide" height="300px" width="100px">
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            @if($post->postImages->count() > 0)
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators{{$key}}" role="button"
-                                   data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators{{$key}}" role="button"
-                                   data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            @endif
-
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">{{$post->name}} <small>({{$post->post_type}})</small></a>
-                            </h4>
-                            <p class="card-text">{{$post->description}}</p>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <small class="ml-3">Nothing found</small>
-            @endforelse
-        </div>
-
-        <ul class="pagination justify-content-center">
-            {{$posts->links()}}
-        </ul>
 
     </div>
 </div>
@@ -198,5 +202,6 @@
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
 <script src="{{asset('js/cookie.js')}}">
 </script>
+<script src="{{asset('js/form-validate.js')}}"></script>
 </body>
 </html>
